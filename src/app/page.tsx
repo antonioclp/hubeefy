@@ -7,7 +7,7 @@ export default function Home(): JSX.Element {
   return (
     <main>
       <section>
-        <span>Home</span>
+        <span>Homepage</span>
       </section>
     </main>
   )
