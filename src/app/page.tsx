@@ -1,4 +1,4 @@
-import { getToken } from '@/api/index'
+import { searchArtist } from '@/api/index'
 
 /**
  * Development branch.
@@ -6,7 +6,7 @@ import { getToken } from '@/api/index'
  * @returns {JSX.Element}
  */
 export default async function Home(): Promise<JSX.Element> {
-  const res = await getToken()
+  const res = await searchArtist('Beyoncé')
   console.log(res)
   return (
     <main>
