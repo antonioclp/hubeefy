@@ -1,5 +1,5 @@
 // Api.
-import { searchArtist } from '@/api/index'
+import { searchArtist, getCategories } from '@/api/index'
 
 /**
  * Development branch.
@@ -7,12 +7,19 @@ import { searchArtist } from '@/api/index'
  * @returns {JSX.Element}
  */
 export default async function Home(): Promise<JSX.Element> {
-  const res = await searchArtist('Beyoncé')
+  const res = await getCategories()
   console.log('response ', res)
   return (
     <main>
       <section>
-        <span>Homepage</span>
+        {res.categories.items.map((item) => {
+          return (
+            <div key={item.id}>
+              <span>{item.name}</span>
+              <br />
+            </div>
+          )
+        })}
       </section>
     </main>
   )
