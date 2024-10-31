@@ -1,9 +1,17 @@
 import axios from 'axios'
 
+// Interfaces.
+import { ICategory } from '@/utils/interfaces'
+
 // Token.
 import getToken from './getToken'
 
-export default async function getCategories(): Promise<any> {
+interface IApiResponse {
+  message: string
+  data: ICategory[]
+}
+
+export default async function getCategories(): Promise<IApiResponse> {
   const url = 'https://api.spotify.com/v1/browse/categories'
 
   await new Promise((resolve) => setTimeout(resolve, 5000))
@@ -14,10 +22,15 @@ export default async function getCategories(): Promise<any> {
     },
     params: {
       locale: 'pt_BR',
-      limit: 50,
+      limit: 10,
       offset: 0,
     },
   })
 
-  return response.data
+  const categories: ICategory[] = response.data.categories.items
+
+  return {
+    message: 'sucess',
+    data: categories,
+  }
 }

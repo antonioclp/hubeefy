@@ -1,10 +1,15 @@
 import axios from 'axios'
 
 // Interfaces.
-import { IApiResponse, IArtist } from '@/utils/interfaces'
+import { IArtist } from '@/utils/interfaces'
 
 // Token.
 import getToken from './getToken'
+
+interface IApiResponse {
+  message: string
+  data: IArtist[]
+}
 
 /**
  * https://developer.spotify.com/documentation/web-api/reference/search
@@ -30,22 +35,23 @@ export default async function searchArtist(
       throw new Error('internal server error.')
     }
 
+    const artists: IArtist[] = response.data.artists.items
+      .filter(
+        (artist: IArtist) => artist.name.toLowerCase() === name.toLowerCase(),
+      )
+      .sort(
+        (a: IArtist, b: IArtist) =>
+          b.popularity - a.popularity || b.followers.total - a.followers.total,
+      )
+
     return {
       message: 'sucess.',
-      data: response.data.artists.items
-        .filter(
-          (artist: IArtist) => artist.name.toLowerCase() === name.toLowerCase(),
-        )
-        .sort(
-          (a: IArtist, b: IArtist) =>
-            b.popularity - a.popularity ||
-            b.followers.total - a.followers.total,
-        ),
+      data: artists,
     }
   } catch (err) {
     return {
-      message: 'error ocurred.',
-      data: (err as Error).message,
+      message: (err as Error).message,
+      data: [],
     }
   }
 }
