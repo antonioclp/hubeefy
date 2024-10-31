@@ -8,6 +8,14 @@ const nextConfig: NextConfig = {
     CLIENT_ID_SPOTIFY: clientId,
     CLIENT_SECRET_SPOTIFY: clientSecret,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
+  },
 }
 
 export default nextConfig

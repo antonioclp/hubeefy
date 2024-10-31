@@ -14,7 +14,12 @@ export interface IArtist {
   type: string
 }
 
-export interface IApiResponse {
-  message: string
-  data: IArtist[] | string
+export interface ICategory {
+  icons: {
+    height: number
+    url: string
+    width: number
+  }[]
+  id: string
+  name: string
 }
