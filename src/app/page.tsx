@@ -1,3 +1,4 @@
+// Api.
 import { searchArtist } from '@/api/index'
 
 /**
@@ -7,7 +8,7 @@ import { searchArtist } from '@/api/index'
  */
 export default async function Home(): Promise<JSX.Element> {
   const res = await searchArtist('Beyoncé')
-  console.log(res)
+  console.log('response ', res)
   return (
     <main>
       <section>
