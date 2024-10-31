@@ -1,5 +1,10 @@
+import Image from 'next/image'
+
+// Interfaces.
+import { ICategory } from '@/utils/interfaces'
+
 // Api.
-import { searchArtist, getCategories } from '@/api/index'
+import { getCategories } from '@/api/index'
 
 /**
  * Development branch.
@@ -12,11 +17,19 @@ export default async function Home(): Promise<JSX.Element> {
   return (
     <main>
       <section>
-        {res.categories.items.map((item) => {
+        {res.data.map((c: ICategory) => {
+          const { id, name, icons } = c
+
           return (
-            <div key={item.id}>
-              <span>{item.name}</span>
-              <br />
+            <div key={id}>
+              <span>{name}</span>
+              <Image
+                src={icons[0].url}
+                alt={name}
+                height={icons[0].height}
+                width={icons[0].width}
+                priority
+              />
             </div>
           )
         })}
